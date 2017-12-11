@@ -34,7 +34,16 @@ namespace albumFinder
             Assert.That(4, Is.EqualTo(musicFiles.Count));
         }
 
+        [Test]
+        public void IsMusicFolder_Returns_True_As_It_Contains_5_Or_More_Music_Files()
+        {
+            string path = @"C:\Bin\Music\Queen\Best\Greatest Hits III";
+            var musicManager = new MusicManager();
 
+            var isMusicFolder = musicManager.IsMusicFolder(path);
+
+            Assert.That(true, Is.EqualTo(isMusicFolder));
+        }
 
     }
 }
