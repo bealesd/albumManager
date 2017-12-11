@@ -11,18 +11,29 @@ namespace albumFinder
     [TestFixture]
     public class UnitTest
     {
-        public string musicFilePath = "C:\\Bin\\Music";
+        public string musicTopFolderPath = "C:\\Bin\\Music";
+        public string musicFilesPath =  @"C:\Bin\Music\Queen\Greatest Hits I";
 
         [Test]
-        public void List_All_Folders_In_Music_Direcotry()
+        public void GetFolders_In_Music_Directory_Returns_All_Sub_Folders()
         {
-            //Arrange
-            var musicManager = new MusicManager();//{ musicFolder = musicFilePath};
-            //Act
-            var musicFolders = musicManager.GetFolders(musicFilePath);
-            //Assert
+            var musicManager = new MusicManager();
+
+            var musicFolders = musicManager.GetFolders(musicTopFolderPath);
+
             Assert.That(15, Is.EqualTo(musicFolders.Count));
         }
+
+        [Test]
+        public void GetFiles_In_A_Directory_Returns_All_Files()
+        {
+            var musicManager = new MusicManager();
+
+            var musicFiles = musicManager.GetFiles(musicFilesPath);
+
+            Assert.That(4, Is.EqualTo(musicFiles.Count));
+        }
+
 
 
     }

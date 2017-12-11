@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using NUnit.Framework;
 
@@ -21,6 +23,11 @@ namespace albumFinder
                 }
             }
             return directories;
+        }
+
+        public List<string> GetFiles(string musicFilesPath)
+        {
+            return Directory.GetFiles(musicFilesPath).ToList();
         }
     }
 }
