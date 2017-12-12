@@ -11,7 +11,7 @@ namespace albumFinder
     [TestFixture]
     public class UnitTest
     {
-        public string musicTopFolderPath = "C:\\Bin\\Music";
+        public string musicFolderPath = "C:\\Bin\\Music";
         public string musicFilesPath =  @"C:\Bin\Music\Queen\Greatest Hits I";
 
         [Test]
@@ -19,7 +19,7 @@ namespace albumFinder
         {
             var musicManager = new MusicManager();
 
-            var musicFolders = musicManager.GetFolders(musicTopFolderPath);
+            var musicFolders = musicManager.GetFolders(musicFolderPath);
 
             Assert.That(15, Is.EqualTo(musicFolders.Count));
         }
@@ -43,6 +43,15 @@ namespace albumFinder
             var isMusicFolder = musicManager.IsMusicFolder(path);
 
             Assert.That(true, Is.EqualTo(isMusicFolder));
+        }
+
+        [Test]
+        public void Get_All_Music_Folders_Returns_List_Of_Music_Folders()
+        {
+            var musicManager = new MusicManager();
+            var musicFolders = musicManager.GetMusicFolders(musicFolderPath);
+
+            Assert.That(4, Is.EqualTo(musicFolders.Count));
         }
 
     }

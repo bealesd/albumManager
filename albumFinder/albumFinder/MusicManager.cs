@@ -42,5 +42,18 @@ namespace albumFinder
 
             return musicFilesCount >= 5;
         }
+
+        public List<string> GetMusicFolders(string folder)
+        {
+            var musicFolders = new List<string>();
+            foreach (var subFolder in GetFolders(folder))
+            {
+                if (IsMusicFolder(subFolder))
+                {
+                    musicFolders.Add(subFolder);
+                }
+            }
+            return musicFolders;
+        }
     }
 }
