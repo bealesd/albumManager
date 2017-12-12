@@ -55,5 +55,23 @@ namespace albumFinder
             }
             return musicFolders;
         }
+
+        public void ExportMusicFolders(string folder, string outputDirectory)
+        {
+            var musicFolders = GetMusicFolders(folder);
+            foreach (var musicFolder in musicFolders)
+            {
+                foreach (FileInfo file in new DirectoryInfo(musicFolder).GetFiles())
+                {
+                    var newDirectory = Path.Combine(outputDirectory, file.Directory.Name);
+
+                    if ( !Directory.Exists(newDirectory))
+                    {
+                        Directory.CreateDirectory(newDirectory);
+                    }
+                    file.CopyTo(Path.Combine(newDirectory, file.Name));
+                }
+            }
+        }
     }
 }

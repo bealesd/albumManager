@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -11,14 +13,24 @@ namespace albumFinder
     [TestFixture]
     public class UnitTest
     {
-        public string musicFolderPath = "C:\\Bin\\Music";
+        public string musicFolderPath = "C:\\Dev\\Projects\\fileManager\\albumFinder\\albumFinder\\music";
         public string musicFilesPath =  @"C:\Bin\Music\Queen\Greatest Hits I";
+        public string temp = "C:\\Dev\\Projects\\fileManager\\albumFinder\\albumFinder\\temp";
+
+        [SetUp]
+        public void Setup()
+        {
+            if (Directory.Exists(temp))
+            {
+                Directory.Delete(temp, true);
+            }
+
+        }
 
         [Test]
         public void GetFolders_In_Music_Directory_Returns_All_Sub_Folders()
         {
             var musicManager = new MusicManager();
-
             var musicFolders = musicManager.GetFolders(musicFolderPath);
 
             Assert.That(15, Is.EqualTo(musicFolders.Count));
@@ -50,8 +62,17 @@ namespace albumFinder
         {
             var musicManager = new MusicManager();
             var musicFolders = musicManager.GetMusicFolders(musicFolderPath);
-
+            
             Assert.That(4, Is.EqualTo(musicFolders.Count));
+        }
+
+        [Test]
+        public void Copy_All_Music_Folders_To_Folder_Root()
+        {
+            var musicManager = new MusicManager();
+            musicManager.ExportMusicFolders(musicFolderPath, temp);
+
+            Assert.That(4, Is.EqualTo(musicManager.GetFolders(temp).Count));
         }
 
     }
