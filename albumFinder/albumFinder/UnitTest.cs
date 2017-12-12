@@ -14,7 +14,7 @@ namespace albumFinder
     public class UnitTest
     {
         public string musicFolderPath = "C:\\Dev\\Projects\\fileManager\\albumFinder\\albumFinder\\music";
-        public string musicFilesPath =  @"C:\Bin\Music\Queen\Greatest Hits I";
+        public string musicFilesPath = @"C:\Dev\Projects\fileManager\albumFinder\albumFinder\music\Queen\Greatest Hits I";
         public string temp = "C:\\Dev\\Projects\\fileManager\\albumFinder\\albumFinder\\temp";
 
         [SetUp]
@@ -31,6 +31,7 @@ namespace albumFinder
         public void GetFolders_In_Music_Directory_Returns_All_Sub_Folders()
         {
             var fileManager = new FileManager();
+
             var musicFolders = fileManager.GetFolders(musicFolderPath);
 
             Assert.That(15, Is.EqualTo(musicFolders.Count));

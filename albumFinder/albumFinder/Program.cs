@@ -30,6 +30,8 @@ Esthers music soughter - it finds a folder with 5 or more songs in
             string musicFolderPath = UserInputReader.GetFolder("Enter exisitng music directory: ", fileManager);
             string outputFolderPath = UserInputReader.CreateFolder("Enter new output music directory: ", fileManager);
             musicManager.CopyMusicFolders(musicFolderPath, outputFolderPath);
+            Console.Write($"Music folders in: {musicFolderPath} " +
+                          $"have been copied to: {outputFolderPath}");
             Console.ReadKey();
         }
     }

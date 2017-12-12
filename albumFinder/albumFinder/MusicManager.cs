@@ -41,6 +41,11 @@ namespace albumFinder
         public void CopyMusicFolders(string folder, string outputDirectory)
         {
             var musicFolders = GetMusicFolders(folder);
+
+            float totalFolders = musicFolders.Count;
+            float currentFoldersRead = 0;
+            float percentComplete = 0;
+
             foreach (var musicFolder in musicFolders)
             {
                 foreach (FileInfo file in new DirectoryInfo(musicFolder).GetFiles())
@@ -52,6 +57,9 @@ namespace albumFinder
 
                     file.CopyTo(Path.Combine(newDirectory, file.Name));
                 }
+
+                percentComplete = ++currentFoldersRead/totalFolders;
+                Console.WriteLine($"Percent complete: {percentComplete, 0:P2}");
             }
         }
     }
