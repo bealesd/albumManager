@@ -4,12 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using NUnit.Framework;
+using TagLib;
 
 namespace albumFinder
 {
     public class MusicManager
     {
-        private List<string> musicExtensions = new List<string>(){"mp3", "wma", "ogg", "wav", "m4a", "m4p", "aac"};
+        private List<string> musicExtensions = new List<string>() { "mp3", "wma", "ogg", "wav", "m4a", "m4p", "aac" };
         private FileManager _fileManager;
 
         public MusicManager(FileManager fileManager)
@@ -50,16 +51,38 @@ namespace albumFinder
             {
                 foreach (FileInfo file in new DirectoryInfo(musicFolder).GetFiles())
                 {
-                    var newDirectory = Path.Combine(outputDirectory, file.Directory.Name);
+                    //string album = "";
+                    //string artist = "";
+                    var folderName = file.Directory.Name;
 
-                    if ( !Directory.Exists(newDirectory))
+                    //try
+                    //{/
+                    //    TagLib.File tagFile = TagLib.File.Create(file.Directory.FullName);
+                    //    album = tagFile.Tag.Album;
+                    //    artist = tagFile.Tag.FirstAlbumArtist;
+                    //}
+                    //catch (Exception) { }
+
+                    //if (album != "")
+                    //{
+                    //    folderName = album;
+                    //}
+
+                    var newDirectory = Path.Combine(outputDirectory, folderName);
+
+                    if (!Directory.Exists(newDirectory))
                         Directory.CreateDirectory(newDirectory);
 
-                    file.CopyTo(Path.Combine(newDirectory, file.Name));
+                    // check if file already exists in directory
+                    var newFilePath = Path.Combine(newDirectory, file.Name);
+                    if (!new FileInfo(newFilePath).Exists)
+                    {
+                        file.CopyTo(Path.Combine(newDirectory, file.Name));
+                    }
                 }
 
-                percentComplete = ++currentFoldersRead/totalFolders;
-                Console.WriteLine($"Percent complete: {percentComplete, 0:P2}");
+                percentComplete = ++currentFoldersRead / totalFolders;
+                Console.WriteLine($"Percent complete: {percentComplete,0:P2}");
             }
         }
     }
